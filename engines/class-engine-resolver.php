@@ -36,8 +36,9 @@ class Engine_Resolver {
 	 *
 	 * @param  string   $engine
 	 * @param  \Closure $resolver
+	 * @return void
 	 */
-	public function register( $engine, Closure $resolver ): void {
+	public function register( $engine, Closure $resolver ) {
 			unset( $this->resolved[ $engine ] );
 
 			$this->resolvers[ $engine ] = $resolver;
