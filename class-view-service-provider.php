@@ -27,7 +27,7 @@ class View_Service_Provider extends Service_Provider {
 	/**
 	 * Register the service provider.
 	 */
-	public function register(): void {
+	public function register() {
 		$this->register_blade_compiler();
 		$this->register_engine_resolver();
 		$this->register_loader();
@@ -40,7 +40,7 @@ class View_Service_Provider extends Service_Provider {
 	protected function register_blade_compiler() {
 		$this->app->singleton(
 			'blade.compiler',
-			fn ( $app ) => new BladeCompiler( new Filesystem(), $app['config']['view.compiled'] ),
+			fn( $app ) => new BladeCompiler( new Filesystem(), $app['config']['view.compiled'] ),
 		);
 	}
 
@@ -50,9 +50,9 @@ class View_Service_Provider extends Service_Provider {
 	protected function register_engine_resolver() {
 		$this->app->singleton(
 			'view.engine.resolver',
-			fn () => tap(
+			fn() => tap(
 				new Engine_Resolver(),
-				function ( Engine_Resolver $resolver ): void {
+				function( Engine_Resolver $resolver ) {
 					// Register the various view engines.
 					$this->register_php_engine( $resolver );
 					$this->register_file_engine( $resolver );
@@ -106,7 +106,7 @@ class View_Service_Provider extends Service_Provider {
 			'view.loader',
 			fn ( $app ) => tap(
 				new View_Finder( $app->get_base_path() ),
-				function ( View_Finder $loader ): void {
+				function ( View_Finder $loader ) {
 					// Register the base view folder for the project.
 					$loader->add_path( $this->app->get_base_path( 'views/' ) );
 				}
@@ -120,7 +120,7 @@ class View_Service_Provider extends Service_Provider {
 	protected function register_factory() {
 		$this->app->singleton(
 			'view',
-			function ( $app ) {
+			function( $app ) {
 				$factory = new Factory(
 					$app,
 					$app['view.engine.resolver'],
