@@ -21,7 +21,6 @@ class Php_Engine implements Engine {
 	 *
 	 * @param string $path View path.
 	 * @param array  $data View data.
-	 * @return string
 	 */
 	public function get( string $path, array $data = [] ): string {
 		$ob_level = ob_get_level();
@@ -29,7 +28,7 @@ class Php_Engine implements Engine {
 		ob_start();
 
 		try {
-			if ( 0 === validate_file( $path ) && 0 === validate_file( $path ) ) {
+			if ( 0 === validate_file( $path ) ) {
 				load_template( $path, false );
 			}
 		} catch ( Throwable $e ) {
